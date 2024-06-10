@@ -15,9 +15,10 @@ class Conference(Base):
     __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True)
-    description = Column(String)
-    speakers = relationship("Speaker", secondary=conference_speakers)
+    title = Column(String, index=True, nullable=False, default="Untitled Conference")
+    description = Column(String,  nullable=True, default="")
+    speakers = relationship("Speaker", secondary=conference_speakers, back_populates="conferences")
+    attendees = relationship("Attendee", secondary="conference_attendees", back_populates="conferences")
 
 class Speaker(Base):
     __tablename__ = "speakers"
@@ -28,4 +29,4 @@ class Speaker(Base):
     bio = Column(String)
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("User")
-    conferences = relationship("Conference", secondary=conference_speakers)
+    conferences = relationship("Conference", secondary=conference_speakers, back_populates="speakers")
