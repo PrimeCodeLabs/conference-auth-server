@@ -19,15 +19,14 @@ fileConfig(config.config_file_name)
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 import sys
-import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../auth-server')))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../protected-api')))
-
 from app.db.database import Base  # Import your models here
 from app.db.models import User  # Import your models here
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../protected-api')))
 from app.attendees.models import Attendee  # Import your models here
-from app.conferences.models import Conference  # Import your models here
+from app.conferences.models import Conference, Speaker  # Import your models here
 
 target_metadata = Base.metadata
 

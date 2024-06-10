@@ -10,6 +10,8 @@ services:
       POSTGRES_DB: conference_db
     volumes:
       - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" 
 
   migrate:
     build:
@@ -26,7 +28,8 @@ services:
       - SECRET_KEY=default_secret
       - ALGORITHM=HS256
     working_dir: /app
-    entrypoint: ["alembic", "upgrade", "head"]
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["tail", "-f", "/dev/null"]
     depends_on:
       - db
 
@@ -57,6 +60,7 @@ services:
     depends_on:
       - db
       - migrate
+      - auth-server
 
 volumes:
   db-data:

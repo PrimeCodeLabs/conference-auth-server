@@ -219,11 +219,11 @@ def generate_code_challenge(code_verifier):
     return base64.urlsafe_b64encode(code_challenge).rstrip(b'=').decode('utf-8')
 
 code_verifier = generate_code_verifier()
-code_challenge = generate_code_challenge(code_ver
+code_challenge = generate_code_challenge(code_verifier)
 
-ifier)
+print
 
-print("Code Verifier:", code_verifier)
+("Code Verifier:", code_verifier)
 print("Code Challenge:", code_challenge)
 ```
 
@@ -262,19 +262,17 @@ Replace `<your_access_token>` with the access token obtained from the previous s
 
 To run database migrations, use the following command:
 ```sh
-docker-compose run migrate
+docker-compose run migrate alembic upgrade head
 ```
 
 ## Seeding the Database
 
 To seed the database with initial data, use the following command:
 ```sh
-docker-compose run seed-protected-api
+docker-compose run protected-api alembic upgrade head
+docker-compose run protected-api python /app/protected-api/app/seed.py
 ```
 
 ## License
 
 This project is licensed under the MIT License.
-```
-
-This `README.md` file now includes detailed information on how to implement and test the OAuth2 Authorization Code Grant with PKCE flow, along with the project overview, setup instructions, and usage.

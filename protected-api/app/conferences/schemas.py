@@ -1,13 +1,30 @@
 from pydantic import BaseModel
+from typing import List
 
-class ConferenceCreate(BaseModel):
+class SpeakerBase(BaseModel):
     name: str
-    location: str
+    bio: str
 
-class Conference(BaseModel):
+class SpeakerCreate(SpeakerBase):
+    pass
+
+class Speaker(SpeakerBase):
     id: int
-    name: str
-    location: str
+    user_id: int
 
     class Config:
-        from_attributes = True 
+        orm_mode = True
+
+class ConferenceBase(BaseModel):
+    title: str
+    description: str
+
+class ConferenceCreate(ConferenceBase):
+    pass
+
+class Conference(ConferenceBase):
+    id: int
+    speakers: List[Speaker] = []
+
+    class Config:
+        orm_mode = True
