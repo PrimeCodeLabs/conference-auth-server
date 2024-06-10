@@ -98,6 +98,44 @@ This project is a conference authentication server using FastAPI, PostgreSQL, an
     docker-compose up --build
     ```
 
+## End-to-End Auth Process Diagram
+```plaintext
+                +-------------+                              +----------------+
+                |             |                              |                |
+                |   Client    |                              |   Auth Server  |
+                |             |                              |                |
+                +-------------+                              +----------------+
+                     |                                             |
+                     | Generate Code Verifier and Code Challenge   |
+                     |--------------------------------------------> |
+                     |                                             |
+                     |     Authorization Request (code_challenge)  |
+                     |--------------------------------------------> |
+                     |                                             |
+                     |                                             |
+                     |          Authorization Response (code)      |
+                     | <------------------------------------------ |
+                     |                                             |
+                     |                                             |
+                     |     Token Request (code_verifier)           |
+                     |--------------------------------------------> |
+                     |                                             |
+                     |                                             |
+                     |            Token Response (token)           |
+                     | <------------------------------------------ |
+                     |                                             |
+                +-------------+                              +----------------+
+                |             |                              |                |
+                | Protected API|                              |  Resource Server|
+                |             |                              |                |
+                +-------------+                              +----------------+
+                     |                                             |
+                     |  Access Protected Resource with Token       |
+                     |--------------------------------------------> |
+                     |                                             |
+                     |   Resource Response                         |
+                     | <------------------------------------------ |
+```
 ## Example Implementation
 
 ### Step 1: Generate Code Verifier and Code Challenge
